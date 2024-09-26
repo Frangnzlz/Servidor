@@ -127,8 +127,29 @@
             $array = array_merge($impares,$pares);
             asort($array);
             print_r($array);
+            echo "<br>";
 
         ?>
+
+        <h2>Ejercicio extra</h2>
+        <?php
+            $pares =[];
+            $impares = [];
+
+            for ($i= 1, $j = 2; $i <21; $i+=2 , $j+=2) { 
+                array_push($impares, $i);
+                array_push($pares, $j);
+            }
+
+            print_r($pares);
+            echo "<br>";
+            print_r($impares);
+            echo "<br>";
+            $array = array_merge($pares,$impares);
+            asort($array);
+            print_r($array);
+        ?>
+
         
     </body>
 </html>
