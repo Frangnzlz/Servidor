@@ -85,7 +85,8 @@
         ?>
         <h2>Ejerccicio 4</h2>
 
-        <li> Crea un script donde una variable contenga un número del 1 al 7 (puedes usar rand para que este numero se genere aleatoriamente) que represente un día de la semana (1 para lunes, 2 para martes, etc.). Usa match para devolver el nombre del día correspondiente.</li>
+        <li> Crea un script donde una variable contenga un número del 1 al 7 (puedes usar rand para que este numero se genere aleatoriamente) 
+            que represente un día de la semana (1 para lunes, 2 para martes, etc.). Usa match para devolver el nombre del día correspondiente.</li>
 
         <?php
 
@@ -114,11 +115,19 @@
 
         $var = rand(1, 12);
         echo match ($var) {
-            1, 2, 12 => "Invierno",
-            3, 4, 5 => "Primavera",
-            6, 7, 8 => "Verano",
-            9, 10, 11 => "Otoño",
+            1, 2, 12 => "Invierno <br>",
+            3, 4, 5 => "Primavera <br>",
+            6, 7, 8 => "Verano <br>",
+            9, 10, 11 => "Otoño <br>",
         };
+
+        echo match(true){
+            $var < 3|| $var > 11 => "Invierno <br>",
+            $var < 6 && $var > 2 => "Primavera <br>",
+            $var < 9 && $var > 5 => "Verano <br>",
+            $var < 12 && $var > 8 => "Otoño <br>",
+            default => $var
+        }
         ?>
 
         <h2>Ejerccicio 6</h2>
