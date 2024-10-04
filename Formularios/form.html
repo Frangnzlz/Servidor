@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sep</title>
+</head>
+<body>
+    <ol>
+        <li>Crea un formulario que permita el nombre, la edad y el correo de un user, y envie los datos mediante POST.
+            Procesa los datos en un archivo y muestra la info
+        </li>
+        <li>
+            Crea un formulario con campos como nombre, correo y contrasenia. valida que 1) El nombre no este vacio
+            2) La contrasenia tenga al menos 8 caracteres 3) la edad no supere los 110 anios.
+            En caso de haber errores, muestre por pantalla el error. si no, los datos ingresados
+        </li>
+    </ol>
+
+    <form action="form.php" method="post">
+        <input type="hidden" name="form" value="ej1">
+        Introducir su nombre: <input type="text" name="nombre" id="">
+        Introuducir su edad: <input type="number" name="edad" id="">
+        Introducir su correo: <input type="email" name="correo" id="">
+        <input type="submit" value="Enviar">
+    </form>
+
+    <form action="form.php" method="post">
+        <input type="hidden" name="form" value="ej2">
+        Introducir su nombre: <input type="text" name="nombre" id="">
+        Introuducir su apellido: <input type="password" name="contra" id="">
+        Introducir su correo: <input type="email" name="correo" id="">
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>
