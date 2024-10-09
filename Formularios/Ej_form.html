@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ej_form</title>
+</head>
+<body>
+    
+    <form action="Ej_form_1.php" method="get">
+        nombre
+        <input type="text" name="nombre" id=""><br>
+        edad
+        <input type="number" name="edad" id="">
+        <br>
+        <input type="submit" value="enviar">
+    </form>
+    <br>
+    <form action="Ej_form_2.php" method="post">
+        nombre
+        <input type="text" name="nombre" id="" required><br>
+        edad
+        <input type="number" name="edad" id="" required>
+        <br>
+        email
+        <input type="email" name="email" id="" required><br>
+        <input type="submit" value="enviar">
+    </form>
+    <form action="Ej_form_3.php" method="post">
+        <textarea name="text" id="" minlength="10"></textarea>
+        <input type="submit" value="enviar">
+    </form>
+
+</body>
+</html>
