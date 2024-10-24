@@ -84,10 +84,9 @@
 
 <?php
         $array4x4 = array();
-        $total = 0;
         for($i = 1; $i <=4; $i++){
             for($j = 1; $j <=4;$j++){
-                $array4x4[$i][$j] = $i == $j ? 1 : 0;
+                $array4x4[$i][$j] = ($i == $j ? 1 : 0);
                 echo $array4x4[$i][$j];
             }
             echo "<br>";
@@ -98,6 +97,33 @@
        
 <h1>Transpuesta de una matriz</h1>
     Dada una matriz 3x3, escribe un programa que calcule y muestre su respuesta. La transpuesta de una matriz es otra matriz en la que las filas son las columnas y viceversa.
+<?php
+    $array = array(
+        array(1,2,3),
+        array(4,5,6),
+        array(7,8,9),
+    );
+    echo "Matriz origen<br>";
+    for($i = 0 ; $i < count($array); $i++){
+        for($j = 0; $j < count($array[$i]); $j++){
+            echo $array[$i][$j]." ";
+        }            
+        echo "<br>";
+    }
+    
+
+    $transpuesta = array( array());
+    echo "Matriz transpuesta<br>";
+    for($i = 0 ; $i < count($array); $i++){
+        for($j = 0; $j < count($array[$i]); $j++){
+            $transpuesta[$i][$j] =  $array[$j][$i];
+            echo $transpuesta[$i][$j]." ";
+        }            
+        echo "<br>";
+    }
+    
+
+?>
         
 <h1>Multiplicación de matrices</h1>
     Crea dos matrices bidimensionales de 2x2 con números enteros. Escribe un programa que calcule el producto de dos matrices y muestre el resultado.
@@ -126,10 +152,64 @@
                 19 22
                 43 50
     </pre>
-
+   
+<?php
+
+
+    $matriz1 = array(
+        array(1, 2),
+        array(3, 4),
+        // array(1,2,3),
+        // array(4,5,6),
+        // array(7,8,9),
+    );
+
+    $matriz2 = array(
+        array(5, 6),
+        array(7, 8),
+        // array(1,2,3),
+        // array(4,5,6),
+        // array(7,8,9),
+    );
+
+    $resultado = array(
+        array(0,0),
+        array(0,0),
+        // array(0, 0, 0),
+        // array(0, 0, 0),
+        // array(0, 0, 0),
+    );
+    for($i = 0; $i < count($matriz1) ; $i++){
+        for($j = 0; $j < count($matriz1); $j++){
+            for($k = 0; $k < count($matriz1); $k++){
+                $resultado[$i][$j] += $matriz1[$i][$k] * $matriz2[$k][$j];
+            }
+            echo $resultado[$i][$j]." ";
+        }
+        echo "<br>";
+    }
+?>
     <h1>Media de una matriz</h1>
     Escribe un programa que calcule la media de todos los valores de una matriz bidimensional de 4x3 (4 filas y 3 columnas). Después muestra la media.
+    <?php
+    $cont = 0;
+    $suma = 0;
+    $array = array(
+        array(1,2,3),
+        array(4,5,6),
+        array(7,8,9),
+        array(10,11,12),
+    );
+    for($i = 0; $i < count($array); $i++){
+        for($j = 0; $j < count($array[$i]); $j++){
+            $suma += $array[$i][$j];
+            $cont++;
+        }
+    }
+    $media = $suma / $cont;
+    echo "la media del array es $suma/$cont = $media"
     
+    ?>
 
 </body>
 </html>
