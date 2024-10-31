@@ -22,7 +22,7 @@
                 echo "La nota media de $alumno sería: $media";    
             }
         }
-        if($id = "ej2"){
+        if($id == "ej2"){
             //Metodo para comrpobar si un numero es perfecto
             function esPerfecto($numero){
                 $suma = 0;
@@ -40,8 +40,8 @@
 
             }
 
-            $minimo = $_POST['minimo'];
-            $maximo = $_POST['maximo'];
+            $minimo = $_POST["minimo"];
+            $maximo = $_POST["maximo"];
             //Condicional para comprobar que el rango es valido
             if($minimo > $maximo){
                 echo "No has introducido un rango valido";

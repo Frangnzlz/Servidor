@@ -1,43 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="" method="post">
-        <input type="number" name="pisos" min="1">
-        <input type="submit" value="K">
-    </form>    
+<?php
+    function generarTriangulo($n){
+        $triangulo = [];
+        $triangulo[0][0] = 1;
 
-
-
-    <?php
-
-
-        if($_SERVER["REQUEST_METHOD"] == "POST"){
-            $triangulo = [[]];
-            $pisos = $_POST["pisos"];
-            for($i = 0; $i < $pisos; $i++){
-                for($j = 0; $j <= $i; $j++){
-                    if($j == 0 || $j == $i){
-                        $triangulo[$i][$j] = 1;
-                    }else{
-                        $triangulo[$i][$j] = $triangulo[$i-1][$j] + $triangulo[$i-1][$j-1];
-                    }
-                }
+        for($i = 1; $i <=$n; $i++ ){
+            $triangulo[$i][0] = 1;
+            for($j = 1; $j<$i; $j++){
+                $triangulo[$i][$j] = $triangulo[$i-1][$j] + $triangulo[$i-1][$j-1];
             }
-            echo "<pre>";
-            print_r($triangulo);
-            echo "<pre>";
-
+            $triangulo[$i][$i] = 1;
         }
-    
-    
-    ?>
+        
+        return $triangulo;
+    }
+
+    function mostrarTriangulo($triangulo){
+
+        for($i = count($triangulo)-1; $i <= 0;$i-- ){
+            for($j = count($triangulo)-1; $j >= $i; $j--){
+                echo "&nbsp;&nbsp;";
+            }
+            for($k = 0; $k < count($triangulo); $k++){
+                echo $triangulo[$i][$k];
+            }
+            echo "<br>";
+        }
+    }
 
 
+    $triangulo = generarTriangulo(5);
 
-</body>
-</html>
+    echo "<pre>";
+
+    echo "</pre>";
+
+    function esPrimo($numero){
+        
+        if($numero <=1){
+            return false;
+        }
+        for($i = 2; $i <= sqrt($numero); $i++){
+            if($numero % $i == 0){
+                return false;
+            }
+        }
+        return true;
+    }
+    function generalTrianguloFloid($n){
+        $cont = 2;
+        for($i = 1; $i <= $n; $i++){
+            for($j = 1 ; $j <= $i ;$j++){
+                while(!esPrimo($cont)){
+                    $cont++;
+                }
+                echo $cont . "&nbsp;";
+                $cont++;
+            }
+            echo "<br>";
+        }
+    }
+
+    generalTrianguloFloid(6);
+
+?>
