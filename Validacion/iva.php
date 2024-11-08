@@ -7,9 +7,11 @@
     <style>
         .error{
             color: red;
+            border-bottom: solid;
         }
         .acierto{
             color: green;
+            border-bottom: solid;
         }
     </style>
     <?php
@@ -20,18 +22,17 @@
     ?>
 </head>
 <body>
-
-    <?php
+<?php
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             $temp_precio = $_POST["precio"];
-            if(isset($_POST["descuento"])) $temp_descuento = $_POST["descuento"];
-            else $temp_descuento = "";
+            if(isset($_POST["iva"])) $temp_iva = $_POST["iva"];
+            else $temp_iva = "";
             
             //validacion del precio
-            $temp_precio = filter_var($temp_precio, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
             if($temp_precio == ""){
                 $err_precio = "<span class='error'>el precio es obligatorio</span>";
             }else{
+                $temp_precio = filter_var($temp_precio, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                 if(!filter_var($temp_precio, FILTER_VALIDATE_FLOAT)){
                     $err_precio = "<span class='error'>mete un numero decimal</span>";
                 }else{
@@ -43,18 +44,15 @@
                 }
             }
 
-            //validacion del descuento
-            $temp_descuento = filter_var($temp_descuento, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-            if($temp_descuento == ""){
-                $err_descuento = "<span class='error'>Elige una opción</span>";
-            }else if(!filter_var($temp_descuento, FILTER_VALIDATE_INT)){
-                $err_descuento = "<span class='error'>Elige un descuento valido</span>";        
+            //validacion del iva
+            if($temp_iva == ""){
+                $err_iva = "<span class='error'>Elige una opción</span>";     
             }else{
-                $descuento_validos = ["10", "20", "30"];
-                if(!in_array($temp_descuento, $descuento_validos)){
-                    $err_descuento = "<span class='error'>El descuento no esta en la lista</span>";        
+                $iva_validos = ["general", "reducido", "superreducido"];
+                if(!in_array($temp_iva, $iva_validos)){
+                    $err_iva = "<span class='error'>El iva no esta en la lista</span>";        
                 }else{
-                    $descuento = $temp_descuento;
+                    $iva = $temp_iva;
                 }
             }
             
@@ -65,21 +63,21 @@
         <input type="text" name="precio">
         <?php echo isset($err_precio) ? $err_precio : ""?>
         <br>
-        <label for="descuento">Introduzca el descuento</label>
-        <select name="descuento">
-            <option disabled selected hidden>---- Elegir Discount ------</option>
-            <option value="10">10%</option>
-            <option value="20">20%</option>
-            <option value="30">30%</option>
+        <label for="iva">Introduzca tipo de IVA</label>
+        <select name="iva">
+            <option disabled selected hidden>---- Elegir IVA ------</option>
+            <option value="general">General</option>
+            <option value="reducido">Reducido</option>
+            <option value="superreducido">Superreducido</option>
         </select>
-        <?php echo isset($err_descuento) ? $err_descuento : ""?>
+        <?php echo isset($err_iva) ? $err_iva : ""?>
         <br>
         <input type="submit" value="Enviar">
     </form>
     <?php
-        if(isset($descuento, $precio)){
-            $precio_final = calcularDescuento($precio, $descuento);
-            echo "<h3 class='acierto'> El precio con el descuento aplicado es $precio_final";
+        if(isset($iva, $precio)){
+            $precio_final = calcularIVA($precio, $iva);
+            echo "<h3 class='acierto'> El precio con el iva aplicado es $precio_final</h3>";
         }
     ?>
 </body>
