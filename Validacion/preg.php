@@ -1,5 +1,5 @@
 <?php
-    /**
+    /*
      * preg_match comuprueba si una cadena coincide con un patrón definido por una expresión regular
      * /"patron"/: es el patron de la expresión regular
      * $var: variable que estamos evaluando
@@ -11,6 +11,10 @@
      * *: cero o más
      * ^: comienza con
      * $: termina con
+     *{}: numero de caracteres del mismo
+      []: define un conjunto de caracteres aceptables
+      (?=...): es una expresion de busqueda anticipada positiva que verifica que la condicion dentro de los parentesis
+      este presente en algun lugar de la cadena 
      */
 
      $cadena = "abc123";
