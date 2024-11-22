@@ -63,7 +63,24 @@
                     echo "$correo no valido";
                 }
             }
+        
+    ?>
+    <!-- Ejercicio contraseña -->
+    <form action="" method="post">
+        <input type="hidden" name="form" value="ej3">
+        <input type="text" name="contraseña">
+        <input type="submit" value="enviar">
+    </form>
+    <?php
+                    if ($_POST["form"] == "ej3") {
+                        $contraseña = $_POST["contraseña"];
+                        if (preg_match("/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!*?&])[a-zA-Z\d@$!*?&]{8,}$/", $contraseña)) {
+                            echo "Contraseña Valido <br>";
+                        } else {
+                            echo "Contraseña NO Valido <br>";
+                        }
+                    }
         }
-    ?>    
+    ?>
 </body>
 </html>
