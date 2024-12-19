@@ -18,12 +18,14 @@
         if($_tabla -> num_rows > 0){
             echo "<table class='table table-hover'> 
             <tr class='table-primary'>
-                <td>ID</td>
-                <td>Titulo</td>
-                <td>Desarroladora</td>
-                <td>Año de lanzamiento</td>
-                <td>Reseña</td>
-                <td>Duración
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Desarroladora</th>
+                <th>Año de lanzamiento</th>
+                <th>Reseña</th>
+                <th>Duración</th>
+                <th>Editar</th>
+                <th>Borrar</th>
             </tr>";
             while($fila = $_tabla ->fetch_assoc()){
                 echo "<tr>";
@@ -56,7 +58,11 @@
                         echo "<td> $valor </td>";
                     }
                 }
-                
+                ?>
+                <td>
+                    <a class="btn btn-primary" href="editarVideojuego.php?id_videojuego=<?php echo $fila['id_videojuego']?>">EDITAR</a>
+                </td>
+                <?php
                 echo "</tr>";
             }
             echo "</table>";
