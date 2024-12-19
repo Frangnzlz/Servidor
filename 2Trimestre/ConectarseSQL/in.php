@@ -10,6 +10,14 @@
         ini_set("display_errors", 1);
         require "conexion.php";
     ?>
+    <?php
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+            $consulta = "DELETE FROM videojuegos
+                        WHERE id_videojuego = " . $_POST["id_videojuego"];
+
+            $conn -> query($consulta);
+        }
+    ?>
 </head>
 <body>
     <?php
@@ -61,6 +69,12 @@
                 ?>
                 <td>
                     <a class="btn btn-primary" href="editarVideojuego.php?id_videojuego=<?php echo $fila['id_videojuego']?>">EDITAR</a>
+                </td>
+                <td>
+                    <form action="" method="post">
+                        <input type="hidden" name="id_videojuego" value = "<?php echo $fila['id_videojuego']?>">
+                        <input type="submit" value="BORRAR" class="btn btn-danger">
+                    </form>
                 </td>
                 <?php
                 echo "</tr>";
