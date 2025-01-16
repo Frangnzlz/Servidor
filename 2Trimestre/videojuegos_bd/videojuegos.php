@@ -6,6 +6,12 @@
     <title>Listado de videojuegos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?php
+        session_start();
+        if(!isset($_SESSION["usuario"])){
+            header("location: usuario/login.php");
+            exit;
+        }
+        
         require "conexion.php";
         $order_by = $_GET['order_by'] ?? 'id_videojuego'; // Orden por defecto
         $direction = $_GET['direction'] ?? 'ASC'; // Dirección por defecto

@@ -6,7 +6,7 @@
     $_base_de_datos = "videojuegos_bd"; // Nombre de la base de datos
 
     // Crear conexión usando MySQLi
-    $_conexion = new Mysqli($_servidor, $_usuario, $_contrasena, $_base_de_datos)
+    $_conexion = new Mysqli( $_servidor, $_usuario, $_contrasena, $_base_de_datos)
         or die("Error de conexión");
     //Crea una conexión entre PHP y la base de datos MySQL utilizando la clase "mysqli"
     // new mysqli(...) es el constructor de la clase mysqli, que se utiliza para inicializar un objeto que representa

@@ -8,6 +8,11 @@
         error_reporting(E_ALL);
         ini_set("display_errors",1);
         require "conexion.php";
+        
+        if(!isset($_SESSION["usuario"]) && $_SESSION["admi"]){
+            header("location: usuario/login.php");
+            exit;
+        }
     ?>
     <style>
         .cagada { color: red; }
@@ -16,74 +21,64 @@
 </head>
 <body>
     <?php
-    /**
-     * Restricciones de validación:
-     * Título: Debe tener entre 3 y 80 caracteres.
-     *  Desarrolladora: Debe seleccionarse del desplegable (valor válido).
-     *  Año de lanzamiento: Debe ser un número entre 1950 y el año actual.
-     *  Reseñas: Debe ser un número entre 0 y 100.
-     
-     *  Duración: Debe ser un número positivo o -1 para juegos como servicio.
-     */
-        // Cargar desarrolladoras
-        $consulta = "SELECT * FROM desarrolladoras ORDER BY nombre_desarrolladora";
+
+        $consulta = "SELECT * FROM proveedores ORDER BY nombre_proveedor";
         $resultado = $_conexion -> query($consulta);
-        $desarrolladoras = [];
+        $proveedoras = [];
         while($fila = $resultado -> fetch_assoc()){
-            array_push($desarrolladoras, $fila["nombre_desarrolladora"]);
+            array_push($proveedoras, $fila["nombre_proveedor"]);
         }
 
         // Inicializar variables y errores
-        $titulo = $nombre_desarrolladora = $anno_lanzamiento = $resennas = $horas_duracion = "";
+        $nombre_producto = $nombre_proveedor = $categoria_producto = $precio = $stock = "";
         $errores = false;
 
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             //Sanitizar y recoger
-            $titulo = htmlspecialchars(trim($_POST["titulo"] ?? ""));
-            $nombre_desarrolladora = $_POST["nombre_desarrolladora"] ?? "";
-            $anno_lanzamiento = $_POST["anno_lanzamiento"] ?? "";
-            $resennas = $_POST["resennas"] ?? "";
-            $horas_duracion = $_POST["horas_duracion"] ?? "";
+            $nombre_producto = htmlspecialchars(trim($_POST["nombre_producto"] ?? ""));
+            $nombre_proveedor = $_POST["nombre_proveedor"] ?? "";
+            $categoria_producto = $_POST["categoria_producto"] ?? "";
+            $precio = $_POST["precio"] ?? "";
+            $stock = $_POST["stock"] ?? "";
 
             //Validar
-            if ($titulo === "" || strlen($titulo) < 3 || strlen($titulo) > 80) {
-                $err_titulo = "<p class='cagada'>El título debe tener entre 3 y 80 caracteres.</p>";
+            if ($nombre_producto === "" || strlen($nombre_producto) < 3 || strlen($nombre_producto) > 80) {
+                $err_nombre_producto = "<p class='cagada'>El título debe tener entre 3 y 80 caracteres.</p>";
                 $errores = true;
             }
 
-            if (!in_array($nombre_desarrolladora, $desarrolladoras)) {
-                $err_desarrolladora = "<p class='cagada'>Seleccione una desarrolladora válida.</p>";
+            if (!in_array($nombre_proveedor, $proveedoras)) {
+                $err_proveedora = "<p class='cagada'>Seleccione una proveedora válida.</p>";
                 $errores = true;
             }
 
-            if (!is_numeric($anno_lanzamiento) || $anno_lanzamiento < 1950 || $anno_lanzamiento > date("Y")) {
-                $err_anno = "<p class='cagada'>El año de lanzamiento debe estar entre 1950 y el año actual.</p>";
+            if ($categoria_producto === "" || strlen($categoria_producto) < 3 || strlen($categoria_producto) > 50) {
+                $err_nombre_producto = "<p class='cagada'>El título debe tener entre 3 y 80 caracteres.</p>";
                 $errores = true;
             }
 
-            if (!is_numeric($resennas) || $resennas < 0 || $resennas > 100) {
-                $err_resennas = "<p class='cagada'>Las reseñas deben ser un número entre 0 y 100.</p>";
+            if (!is_numeric($precio) || $precio < 0 || $precio > 100) {
+                $err_precio = "<p class='cagada'>Las reseñas deben ser un número entre 0 y 100.</p>";
                 $errores = true;
             }
 
-            if (!is_numeric($horas_duracion) || ($horas_duracion != -1 && $horas_duracion < 0)) {
+            if (!is_numeric($stock) || ($stock != -1 && $stock < 0)) {
                 $err_duracion = "<p class='cagada'>La duración debe ser un número positivo o -1.</p>";
                 $errores = true;
             }
 
-            //Insertar si ta to bien
             if (!$errores) {
                 $consulta = "INSERT INTO videojuegos (
-                                        titulo,
-                                        nombre_desarrolladora,
-                                        anno_lanzamiento,
-                                        resennas,
-                                        horas_duracion) VALUES 
-                                        ('$titulo',
-                                        '$nombre_desarrolladora',
-                                        $anno_lanzamiento,
-                                        $resennas,
-                                        $horas_duracion)";
+                                        nombre_producto,
+                                        nombre_proveedor,
+                                        categoria_producto,
+                                        precio,
+                                        stock) VALUES 
+                                        ('$nombre_producto',
+                                        '$nombre_proveedor',
+                                        $categoria_producto,
+                                        $precio,
+                                        $stock)";
                 
                 if ($_conexion->query($consulta)) {
                     echo "<p class='tabien'>El juego se ha añadido correctamente.</p>";
@@ -95,35 +90,35 @@
     ?>
 
     <form action="" method="post" enctype="multipart/form-data">
-        <label for="titulo">Título:</label>
-        <input type="text" name="titulo" value="<?= $titulo ?>">
-        <?= $err_titulo ?? "" ?>
+        <label for="nombre_producto">nombre_producto:</label>
+        <input type="text" name="nombre_producto" value="<?= $nombre_producto ?>">
+        <?= $err_nombre_producto ?? "" ?>
         <br><br>
 
-        <label for="nombre_desarrolladora">Estudio:</label>
-        <select name="nombre_desarrolladora">
-            <option value="" selected disabled hidden>--ELIJA SU DESARROLLADORA--</option>
-            <?php foreach($desarrolladoras as $desarrolladora){ ?>
-                <option value="<?= $desarrolladora ?>" <?= $nombre_desarrolladora == $desarrolladora ? "selected" : "" ?>>
-                    <?= $desarrolladora ?>
+        <label for="nombre_proveedor">nombre_proveedor:</label>
+        <select name="nombre_proveedor">
+            <option value="" selected disabled>--ELIJA SU DESARROLLADORA--</option>
+            <?php foreach($proveedoras as $proveedora){ ?>
+                <option value="<?= $proveedora ?>">
+                    <?= $proveedora ?>
                 </option>
             <?php } ?>
         </select>
-        <?= $err_desarrolladora ?? "" ?>
+        <?= $err_proveedora ?? "" ?>
         <br><br>
 
-        <label for="anno_lanzamiento">Año de lanzamiento:</label>
-        <input type="text" name="anno_lanzamiento" value="<?= $anno_lanzamiento ?>">
+        <label for="categoria_producto">Año de categoria_producto:</label>
+        <input type="text" name="categoria_producto" value="<?= $categoria_producto ?>">
         <?= $err_anno ?? "" ?>
         <br><br>
 
-        <label for="resennas">Reseñas de Steam (%):</label>
-        <input type="text" name="resennas" value="<?= $resennas ?>">
-        <?= $err_resennas ?? "" ?>
+        <label for="precio">precio de Steam (%):</label>
+        <input type="text" name="precio" value="<?= $precio ?>">
+        <?= $err_precio ?? "" ?>
         <br><br>
 
-        <label for="horas_duracion">Duración (horas):</label>
-        <input type="text" name="horas_duracion" value="<?= $horas_duracion ?>">
+        <label for="stock">stock</label>
+        <input type="text" name="stock" value="<?= $stock ?>">
         <?= $err_duracion ?? "" ?>
         <br><br>
 
