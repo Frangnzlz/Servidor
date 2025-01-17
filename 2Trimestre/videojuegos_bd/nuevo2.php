@@ -68,6 +68,24 @@
             }
 
             if (!$errores) {
+                //1. preparación
+                $consulta = "INSERT INTO videojuegos(titulo
+                                        nombre_desarrolladora,
+                                        anno_lanzamiento_
+                                        reseñas,
+                                        horas_duracion) VALUES (?, ?, ?, ?, ?)";
+                $stmt = $_conexion -> prepare($consulta);
+
+                //2. Bind (Enlazamiento)
+                $stmt -> bind_param("ssidi", $titulo, $nombre_desarrolladora, $anno_lanzamiento, $reseñas, $horas_duracion);
+
+                //3. Ejecución
+                if($stmt -> execute()){
+                    echo "correcto";
+                }else{
+                    echo "mal";
+                }
+
                 $consulta = "INSERT INTO videojuegos (
                                         nombre_producto,
                                         nombre_proveedor,
