@@ -33,7 +33,7 @@
         krsort($mi_array);//Ordena las claves de mayor a menor
         print_r($mi_array);
         echo "<br>";
-        arsort($mi_array); //Ordena los valores de mayor a menor
+        arsort($mi_array); //Ordena los valores de mayor a menor manteniendo la asociación
         print_r($mi_array);
         echo "<br>";
         echo "<br>" . count($mi_array). "<br>";//$mi_array[6]
