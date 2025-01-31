@@ -6,31 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script>
-        function mostrarFormulario(){
-            let metodoSeleccionado =document.querySelector('select[name= metodo').value;
-
-            console.log(metodoSeleccionado)
-            let campoGet =document.getElementById('campoGet');
-            let campoPostPut = document.getElementById("campoPostPut");
-            let campoDelete = document.getElementById('campoDelete');
-            let campoBoton =document.getElementById("campoBoton");
-
-            campoGet.style.display = "none";
-            campoPostPut.style.display = "none";
-            campoDelete.style.display = "none";
-
-            if(metodoSeleccionado == "GET"){
-                campoGet.style.display = "block";
-            }else if(metodoSeleccionado == "POST" || metodoSeleccionado == "PUT"){
-                campoPostPut.style.display = "block";
-            }else if(metodoSeleccionado == "DELETE"){
-                campoDelete.style.display="block"
-            }
-            campoBoton.style.display = "block"
-        }
-    </script>
-    
 </head>
 
 <body>
@@ -40,34 +15,20 @@
         <form action="" method="post">
             <div class="mb-3">
                 <label class="form-label">Seleccionar el metodo</label>
-                <select name="metodo" class="form-select" onchange="mostrarFormulario()">
-                    <option selected disabled>-----SELECCIONA UN METODO</option>
+                <select name="metodo" class="form-select">
                     <option value="GET">GET(Recuperar datos)</option>
                     <option value="POST">POST(Insertar datos)</option>
                     <option value="PUT">PUT(Cambiar datos)</option>
                     <option value="DELETE">DELETE(borrar datos)</option>
                 </select>
             </div>
-            <div id="campoGet" style="display:none">
-                <label>Ciudad</label>
-                <input type="text" name="ciudad" class="form-control" placeholder="Ciudad">
+            <div id="datosPost" class="mb-3">
+                <label class="form-label">Datos para POST:</label>
+                <input type="text" name="nombre_desarrolladora" class="form-control" placeholder="Nombre desarrolladora">
+                <input type="text" name="titulo" class="form-control" placeholder="titulo">
+                <input type="number" name="anno_fundacion" class="form-control" placeholder="Ano fundacion">
             </div>
-            <div id="campoPostPut" style="display:none">
-                <div id="datosPost" class="mb-3">
-
-                    <label class="form-label">Datos para POST:</label>
-                    <input type="text" name="nombre_desarrolladora" class="form-control" placeholder="Nombre desarrolladora">
-                    <input type="number" name="anno_fundacion" class="form-control" placeholder="Ano fundacion">
-                </div>
-            </div>
-            <div id="campoDelete" style="display:none">
-            <label class="form-label">Datos para el DELETE:</label>
-            <input type="text" name="nombre_desarrolladora" class="form-control" placeholder="Nombre desarrolladora">
-            </div>
-
-            <div id="campoBoton" style="display:none">
-                <button type="submit" class="btn btn-primary">Enviar</button>
-            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </div>
 
@@ -77,11 +38,14 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $metodo = $_POST["metodo"];
         $datos = [];
-        $url = "http://localhost/API_ale/nucleoAPI.php";
+        $url = "http://localhost/API/nucleoAPI.php";
         if ($metodo == "GET") {
             //mandamos un get, contruimos URL dependiendo de si da ciudad o no
-            $ciudad = isset($_POST["ciudad"]) && !empty($_POST["ciudad"]) ? "?ciudad=" . urlencode($_POST["ciudad"]) : "";
-            $url .= $ciudad;
+            // $ciudad = isset($_POST["ciudad"]) && !empty($_POST["ciudad"]) ? "?ciudad=" . urlencode($_POST["ciudad"]) : "";
+            // $url .= $ciudad;
+            $datos = [
+                "titulo" => $_POST["titulo"]
+            ];
             // echo "url generada: " . htmlspecialchars($url) . "<br>";
             // try {
             //     $res = file_get_contents($url);
@@ -142,7 +106,8 @@
             echo "Error al realizar la solicitud " . $e->getMessage();
         }
 
-        echo "<pre>" . htmlspecialchars($respuesta) . "</pre>";
+        echo htmlspecialchars_decode($respuesta) ;
+
     }
     ?>
 

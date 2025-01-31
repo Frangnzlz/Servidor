@@ -16,10 +16,10 @@
             controlGET($_conexion, $entrada);
             break;
         case 'POST':
-            controlPOST($_conexion, $entrada);
+            // controlPOST($_conexion, $entrada);
             break;
         case 'DELETE':
-            controlDelete($_conexion, $entrada);
+            // controlDelete($_conexion, $entrada);
             break; 
         default:
             echo "No se encuentra el método";
@@ -28,7 +28,7 @@
     
     function controlGET($_conexion, $entrada) {
             ?>
-                <table>
+                <table border="1">
                     <tr>
                         <th>id_videojuego</th>
                         <th>titulo</th>
@@ -39,15 +39,34 @@
                     </tr>
             <?php
         if(isset($entrada["titulo"]) && $entrada["titulo"] != ""){
-
+            $consulta = "SELECT * FROM videojuegos WHERE titulo = :t";
+            $stmt = $_conexion -> prepare($consulta);
+            $stmt -> execute([
+                "t" => $entrada["titulo"]
+            ]);
+            foreach($stmt -> fetch(PDO::FETCH_ASSOC) as $campo => $valor ){
+                if($campo == "horas_duracion"){
+                    ?><td><?= $valor < 0 ? "Juego como servicio" : $valor?></td><?php
+                }else{
+                    ?><td><?= $valor?></td><?php
+                }
+            }
+            $consulta = "SELECT id_videojuego FROM videojuegos WHERE titulo <> :t";
+            $stmt = $_conexion -> prepare($consulta);
+            $stmt -> execute([
+                "t" => $entrada["titulo"]
+            ]);
+            while($registro = $stmt -> fetch(PDO::FETCH_ASSOC)){
+                ?><tr><td><?= $registro["id_videojuego"] ?></td></tr><?php
+            }
         }else{
             $consulta = "SELECT * FROM videojuegos";
             $stmt = $_conexion -> prepare($consulta);
             $stmt -> execute();
-            while($registro = $stmt -> fetch()){
+            while($registro = $stmt -> fetch(PDO::FETCH_ASSOC)){
                 ?><tr><?php
                 foreach($registro as $campo => $valor ){
-                    if($campo == "horas de duracion"){
+                    if($campo == "horas_duracion"){
                         ?><td><?= $valor < 0 ? "Juego como servicio" : $valor?></td><?php
                     }else{
                         ?><td><?= $valor?></td><?php
