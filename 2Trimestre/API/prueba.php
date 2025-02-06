@@ -18,13 +18,12 @@
                 <select name="metodo" class="form-select">
                     <option value="GET">GET(Recuperar datos)</option>
                     <option value="POST">POST(Insertar datos)</option>
-                    <option value="PUT">PUT(Cambiar datos)</option>
                     <option value="DELETE">DELETE(borrar datos)</option>
                 </select>
             </div>
             <div id="datosPost" class="mb-3">
                 <label class="form-label">Datos para POST:</label>
-                <input type="text" name="nombre_desarrolladora" class="form-control" placeholder="Nombre desarrolladora">
+                <input type="text" name="id_videojuego" class="form-control" placeholder="id_videojuego">
                 <input type="text" name="titulo" class="form-control" placeholder="titulo">
                 <input type="number" name="anno_fundacion" class="form-control" placeholder="Ano fundacion">
             </div>
@@ -53,10 +52,10 @@
             // } catch (Exception $e) {
             //     echo "Error al realizar la solicitud " . $e->getMessage();
             // }
-        } else if ($metodo == "POST" || $metodo == "PUT" || $metodo == "DELETE") {
+        } else if ($metodo == "POST" || $metodo == "DELETE") {
             //mandamos un post, contruimos URL
             $nombre_desarrolladora = isset($_POST["nombre_desarrolladora"]) && !empty($_POST["nombre_desarrolladora"]) ? $_POST["nombre_desarrolladora"] : "";
-            if($metodo == "POST" || $metodo == "PUT" ){
+            if($metodo == "POST" ){
                 $datos = [
                     "nombre_desarrolladora" => $_POST["nombre_desarrolladora"],
                     "ciudad" => $_POST["ciudad"],
@@ -64,7 +63,7 @@
                 ];
             }else{
                 $datos = [
-                    "nombre_desarrolladora" => $_POST["nombre_desarrolladora"],
+                    "id_videojuego" => $_POST["id_videojuego"],
                 ];
             }
 

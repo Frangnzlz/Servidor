@@ -3,5 +3,8 @@
     2.1)GET: En el caso de que so ne especifique un videojuego que enseñar los datos, se mostrará la tabla de los videojuegos entera con todas las columnas.
             En el caso de que se especifique el nombre de un videojuego, se mostrará todas las claves primarias de la tabla.
     2.2)POST: Se insertá los datos del videojuegos SI y SOLO SI se han rellenado todos los campos
-    3.3)DELETE: EN el caso de que se especifique un videojuego, se eliminará la fila de dicho juego, en caso de que no se especifique nada,
+    2.3)DELETE: EN el caso de que se especifique un videojuego, se eliminará la fila de dicho juego, en caso de que no se especifique nada,
                 no se eliminará ninguna columna pero en el caso de que se introduzca la palabra ADMIN se eliminará los datos de la tabla entera.
+    2.4)PUT: Es obligatorio la primary para acceder al juego, a partir de ahi actualizaremos los campos que se rellenen.
+                Los campos no rellenados se quedarán con el valor que ya tenia la base de datos.
+                (Los campos VARCHAR actualizados tendrán un asteristco al final de la cadena para señalar que han sido actualizados.) <-------

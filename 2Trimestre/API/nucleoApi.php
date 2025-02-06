@@ -19,7 +19,7 @@
             // controlPOST($_conexion, $entrada);
             break;
         case 'DELETE':
-            // controlDelete($_conexion, $entrada);
+            controlDelete($_conexion, $entrada);
             break; 
         default:
             echo "No se encuentra el método";
@@ -28,7 +28,7 @@
     
     function controlGET($_conexion, $entrada) {
             ?>
-                <table border="1">
+                <table border="1" class="table">
                     <tr>
                         <th>id_videojuego</th>
                         <th>titulo</th>
@@ -48,7 +48,7 @@
                 if($campo == "horas_duracion"){
                     ?><td><?= $valor < 0 ? "Juego como servicio" : $valor?></td><?php
                 }else{
-                    ?><td><?= $valor?></td><?php
+                    ?><td> </td><?php
                 }
             }
             $consulta = "SELECT id_videojuego FROM videojuegos WHERE titulo <> :t";
@@ -76,5 +76,35 @@
             }
 
         }
+    }
+    
+    function controlDelete($_conexion, $entrada){
+        if($entrada["id_videojuego"] == "ADMIN"){
+            $consulta = "DELETE FROM videojuegos";
+            $stmt = $_conexion -> prepare($consulta);
+            $stmt = $stmt -> execute();
+
+            echo "Tabla borrada";
+        }else{
+            $consulta = "SELECT * FROM videojuegos WHERE id_videojuego = :id";
+            $stmt = $_conexion -> prepare($consulta);
+            $stmt -> execute([
+               "id" => $entrada["id_videojuego"]
+            ]);
+            $stmt = $stmt -> fetch();
+            if($stmt){
+                $consulta = "DELETE FROM videojuegos WHERE id_videojuego = :id";
+                $stmt = $_conexion -> prepare($consulta);
+                $stmt = $stmt -> execute([
+                   "id" => $entrada["id_videojuego"]
+                ]);
+
+                echo "Video juego " . $entrada["id_videojuego"]. " borrado";
+            }else{
+
+                echo "No existe ese juego";
+            }
+        }
+            
     }
  ?>
