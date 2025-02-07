@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="formulario.js"></script>
 </head>
+
 
 <body>
 
@@ -15,18 +18,19 @@
         <form action="" method="post">
             <div class="mb-3">
                 <label class="form-label">Seleccionar el metodo</label>
-                <select name="metodo" class="form-select">
+                <select name="metodo" id="metodo" class="form-select">
                     <option value="GET">GET(Recuperar datos)</option>
                     <option value="POST">POST(Insertar datos)</option>
+                    <option value="PUT">PUT(Modificar Datos)</option>
                     <option value="DELETE">DELETE(borrar datos)</option>
                 </select>
             </div>
-            <div id="datosPost" class="mb-3">
+            <!-- <div id="datosPost" class="mb-3">
                 <label class="form-label">Datos para POST:</label>
                 <input type="text" name="id_videojuego" class="form-control" placeholder="id_videojuego">
                 <input type="text" name="titulo" class="form-control" placeholder="titulo">
                 <input type="number" name="anno_fundacion" class="form-control" placeholder="Ano fundacion">
-            </div>
+            </div> -->
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </div>

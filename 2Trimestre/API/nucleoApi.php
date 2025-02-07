@@ -18,6 +18,9 @@
         case 'POST':
             // controlPOST($_conexion, $entrada);
             break;
+            case 'PUT':
+                controlDelete($_conexion, $entrada);
+                break; 
         case 'DELETE':
             controlDelete($_conexion, $entrada);
             break; 
