@@ -17,7 +17,7 @@
         $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_URL, $apiURL);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, option: CURLOPT_RETURNTRANSFER, value: true);
         $res = curl_exec($curl);
         curl_close($curl);
 
